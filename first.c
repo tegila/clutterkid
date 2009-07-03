@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 	clutter_actor_set_size (stage, 800, 600);
 	clutter_stage_set_color (CLUTTER_STAGE (stage), &stage_color);
 
-
+  	clutter_container_add (CLUTTER_CONTAINER (painel_central), label_angulo_atual);
 
 	ClutterActor *painel_central = clutter_group_new ();
   	clutter_actor_set_position (painel_central, 400, 300);
@@ -64,15 +64,9 @@ int main(int argc, char *argv[])
 
 	g_timeout_add(100, rotate_square, &painel_central);
 
-	/* Show the stage: */
+
+
 	clutter_actor_show (stage);
-
-
-
-
-
-
-	/* Start the main loop, so we can respond to events: */
 	clutter_main ();
 
 	return EXIT_SUCCESS;
