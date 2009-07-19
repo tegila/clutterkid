@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 
   /* Get the stage and set its size and color: */
   ClutterActor *stage = clutter_stage_get_default ();
-  clutter_actor_set_size (stage, 200, 200);
+  clutter_actor_set_size (stage, 800, 600);
   clutter_stage_set_color (CLUTTER_STAGE (stage), &stage_color);
 
   /* Add a rectangle to the stage: */

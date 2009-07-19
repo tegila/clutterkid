@@ -5,7 +5,7 @@ CLUTTER_CFLAGS=`pkg-config --cflags clutter-0.9`
 CLUTTER_LIBS=`pkg-config --libs clutter-0.9`
 
 CC = gcc 
-CFLAGS = -c -Wall $(CLUTTER_CFLAGS)
+CFLAGS = -g -c -Wall $(CLUTTER_CFLAGS)
 LINKER = gcc
 LDFLAGS = $(CLUTTER_LIBS) -o
 OBJS = first.o
