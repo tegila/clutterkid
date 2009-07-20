@@ -25,23 +25,19 @@ struct RotationClosure {
     CoglFixed current_angle;
 };
 
-
 static gboolean rotate_square(gpointer data)
 {
     struct RotationClosure *clos = data;
     clutter_actor_set_rotation(clos->actor, CLUTTER_X_AXIS, clos->current_angle, 0, 0, 0);
 
     clos->current_angle += COGL_FIXED_1;
-	clutter_text_set_text(label_angulo_atual,"aiuahaui");
+	//clutter_text_set_text(label_angulo_atual,"aiuahaui");
 
     if(clos->current_angle == clos->final_angle)
 	    return FALSE;
 
     return TRUE;
 }
-
-
-
 
 int main(int argc, char *argv[])
 {
@@ -55,26 +51,23 @@ int main(int argc, char *argv[])
 	clutter_actor_set_size (stage, 800, 600);
 	clutter_stage_set_color (CLUTTER_STAGE (stage), &stage_color);
 
-
-
-	ClutterActor *painel_central = clutter_group_new ();
-  	clutter_actor_set_position (painel_central, 400, 300);
-  	clutter_container_add_actor (CLUTTER_CONTAINER (stage), painel_central);
-  	clutter_actor_show (painel_central);
-
-	g_timeout_add(100, rotate_square, &painel_central);
+	ClutterActor *painel = clutter_group_new ();
+  	clutter_actor_set_position (painel, 400, 300);
+	clutter_container_add_actor (CLUTTER_CONTAINER (stage), painel);
+	//clutter_actor_show (painel);
+	
+	ClutterActor *label = clutter_text_new_with_text("Mono 12", "hello world");
+	clutter_actor_set_position(label, 20, 20);
+	clutter_container_add_actor(CLUTTER_CONTAINER(stage), label);
+	clutter_actor_show(label);
+	
+	//g_timeout_add(100, rotate_square, &painel);
 
 	/* Show the stage: */
 	clutter_actor_show (stage);
-
-
-
-
-
 
 	/* Start the main loop, so we can respond to events: */
 	clutter_main ();
 
 	return EXIT_SUCCESS;
-
 }
