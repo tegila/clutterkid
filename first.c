@@ -17,12 +17,30 @@
 #include <clutter/clutter.h>
 #include <stdlib.h>
 
+struct RotationClosure {
+    ClutterActor *actor;
+    CoglFixed final_angle;
+    CoglFixed current_angle;
+};
+
+static gboolean rotate_square(gpointer data)
+{
+    struct RotationClosure *clos = data;
+    
+    clutter_actor_set_rotation(clos->actor, CLUTTER_X_AXIS, clos->current_angle, 0, 0, 0);
+    clos->current_angle += COGL_FIXED_1;
+
+    if(clos->current_angle == clos->final_angle)
+	return FALSE;
+
+    return TRUE;
+}
 
 int main(int argc, char *argv[])
 {
   ClutterColor stage_color = { 0x00, 0x00, 0x00, 0xff };
   ClutterColor actor_color = { 0xff, 0xff, 0xff, 0x99 };
-
+    struct RotationClosure clos;
   clutter_init (&argc, &argv);
 
   /* Get the stage and set its size and color: */
@@ -44,6 +62,12 @@ int main(int argc, char *argv[])
   clutter_container_add_actor (CLUTTER_CONTAINER (stage), label);
   clutter_actor_show (label);
 
+    clos.actor = rect;
+    clos.final_angle = COGL_FIXED_FROM_FLOAT(360.0);
+    clos.current_angle = 0;
+
+    g_timeout_add(1000/360, rotate_square, &clos);
+  
   /* Show the stage: */
   clutter_actor_show (stage);
 
